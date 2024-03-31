@@ -71,6 +71,11 @@ export default function TopNavbar() {
               Cart
             </Link>
           </li>
+          <li className="cursor-pointer">
+            <Link href={"/Back-Stage"} className="btn border-none">
+              後台
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

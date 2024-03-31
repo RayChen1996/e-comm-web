@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const postsApi = createApi({
   reducerPath: "postsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://e-comm-api-6gvq.onrender.com/", //https://todolist-kata-xfsx.onrender.com/
+    baseUrl: "https://node-api-wbea.onrender.com/", //https://todolist-kata-xfsx.onrender.com/
   }),
   endpoints: (builder) => ({
     getAllPosts: builder.query({
