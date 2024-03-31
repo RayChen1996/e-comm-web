@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 import { store } from "@/store/index";
 import Footer from "@/components/Basic/footer";
 import Navbar from "@/components/Basic/TopNavbar";
+import clsx from "clsx";
 
 export const metadata: Metadata = {
   title: "香水電商",
@@ -22,11 +23,12 @@ export default function RootLayout({
   return (
     <ReduxProvider>
       <html lang="en">
-        <Navbar />
-        <body className={inter.className}>
-          <div className=" h-screen">{children}</div>
+        <body className={clsx("  ", inter.className)}>
+          <Navbar />
+          <div className=" h-screen flex-1">{children}</div>
+
+          <Footer />
         </body>
-        <Footer />
       </html>
     </ReduxProvider>
   );

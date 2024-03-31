@@ -6,17 +6,17 @@ import numbro from "numbro";
 import { useRouter, usePathname } from "next/navigation";
 import useCreateQueryUrl, { combinSearchUrl } from "@/hook/useCreateQueryUrl";
 import { useQuerySearchParams } from "@/hook/useQueryParams";
+import { Suspense } from "react";
+import bg from "../../../public/anis-m-WnVrO-DvxcE-unsplash.jpg";
 export default function Product() {
   const { data, error, isLoading } = useGetAllPostsQuery("");
   const { category } = useQuerySearchParams();
-
-  console.log("category2", category);
 
   if (isLoading || !data)
     return <span className=" loading loading-spinner"></span>;
 
   const filteredData = category
-    ? data.filter((product) => product.category === category)
+    ? data.filter((product: any) => product.category === category)
     : data;
 
   console.log("filteredData ", filteredData);
@@ -30,13 +30,38 @@ export default function Product() {
   }
 
   return (
-    <div className="     ">
-      <Category />
-      <ProductGrid>
-        {filteredData.map((product, index) => (
-          <ProductCard key={index} product={product} />
-        ))}
-      </ProductGrid>
+    <>
+      <Suspense>
+        <Category />
+      </Suspense>
+
+      <div className=" container md:w1/2 w-2/3 ">
+        <ProductGrid>
+          {filteredData.map((product: any, index: any) => (
+            <ProductCard key={index} product={product} />
+          ))}
+        </ProductGrid>
+      </div>
+      <RememberSubscriptInfo />
+    </>
+  );
+}
+
+function RememberSubscriptInfo() {
+  return (
+    <div className=" h-72  w-full   relative">
+      <Image alt="" fill src={bg} objectFit="cover" />
+      <div className="    absolute bottom-3 left-40 ">
+        <h3 className=" font-bold text-[#8D8D8D]">記得</h3>
+        <h3 className=" font-bold text-[#8D8D8D]">訂閱以獲取更多資訊！</h3>
+        <input
+          className=" border my-2 p-2 mx border-primary-content"
+          type="email"
+          placeholder="Your email address"
+          name=""
+          id=""
+        />
+      </div>
     </div>
   );
 }
@@ -50,20 +75,19 @@ function Category() {
 
   console.log("category", category);
   const [active, setActive] = useState("");
-  const onSwitchCategory = (categoryName) => {
+  const onSwitchCategory = (categoryName: string) => {
     replace(combinSearchUrl(pathname, [`category=${categoryName}`]));
   };
 
-  console.log(data);
   return (
-    <div className=" h-10 w-full bg-secondary-content">
+    <div className="h-10 w-full bg-secondary-content">
       {isLoading ? (
         <div>Loading...</div>
       ) : error ? (
-        <div>Error: {error.message}</div>
+        <div>Error: </div>
       ) : (
-        <ul className=" flex flex-row gap-3 justify-center items-center ">
-          {data.map((category) => (
+        <ul className=" flex flex-row gap-3 h-full justify-center items-center ">
+          {data.map((category: any) => (
             <li
               onClick={() => {
                 onSwitchCategory(category.category_name);
@@ -96,7 +120,7 @@ function ProductCard({ product }: { product: ProductProp }) {
 
   return (
     <div className=" flex justify-center items-center flex-col mt-4   ">
-      <figure className=" w-52 h-52 relative ">
+      <figure className=" w-28  h-28 lg:w-52 lg:h-52 relative ">
         <Image alt="" src={image} fill />
       </figure>
       <div className=" w-full ml-10 flex flex-col justify-center">
@@ -117,10 +141,10 @@ function ProductCard({ product }: { product: ProductProp }) {
           </span>
         </div>
         <div className=" flex  gap-3">
-          <span className="cursor-pointer material-icons flex h-full items-center justify-center bg-[#fff] font-bold text-[#145571]">
+          <span className="cursor-pointer material-icons flex h-full items-center justify-center bg-[#fff] font-bold text-[#916019]">
             favorite
           </span>
-          <span className=" cursor-pointer material-icons flex h-full items-center justify-center bg-[#fff] font-bold text-[#145571]">
+          <span className=" cursor-pointer material-icons flex h-full items-center justify-center bg-[#fff] font-bold text-[#916019]">
             shopping_cart
           </span>
 
