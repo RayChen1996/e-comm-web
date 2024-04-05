@@ -55,6 +55,7 @@ export default function Page() {
   });
 
   const _pressOpen = () => {
+    setTitle("新增");
     const modal = document.getElementById("my_modal_1") as HTMLDialogElement;
     if (modal) {
       modal.showModal();
@@ -157,7 +158,6 @@ export default function Page() {
 
   return (
     <div>
-      <h1>新增產品</h1>
       <button onClick={_pressOpen} className=" btn btn-primary text-white ">
         新增
       </button>
