@@ -9,17 +9,7 @@ import { useQuerySearchParams } from "@/hook/useQueryParams";
 import { Suspense } from "react";
 import bg from "../../../public/anis-m-WnVrO-DvxcE-unsplash.jpg";
 export default function Product() {
-  const { data, error, isLoading } = useGetAllPostsQuery("");
-  const { category } = useQuerySearchParams();
-
-  if (isLoading || !data)
-    return <span className=" loading loading-spinner"></span>;
-
-  const filteredData = category
-    ? data.filter((product: any) => product.category === category)
-    : data;
-
-  console.log("filteredData ", filteredData);
+  // const { category } = useQuerySearchParams();
 
   function ProductGrid({ children }: { children: React.ReactNode }) {
     return (
@@ -29,33 +19,18 @@ export default function Product() {
     );
   }
 
-  return (
-    <>
-      <Suspense>
-        <Category />
-      </Suspense>
-
-      <div className=" container md:w1/2 w-2/3 ">
-        <ProductGrid>
-          {filteredData.map((product: any, index: any) => (
-            <ProductCard key={index} product={product} />
-          ))}
-        </ProductGrid>
-      </div>
-      <RememberSubscriptInfo />
-    </>
-  );
+  return <Suspense></Suspense>;
 }
 
 function RememberSubscriptInfo() {
   return (
-    <div className=" h-72  w-full   relative">
+    <div className="relative h-72 w-full">
       <Image alt="" fill src={bg} objectFit="cover" />
-      <div className="    absolute bottom-3 left-40 ">
-        <h3 className=" font-bold text-[#8D8D8D]">記得</h3>
-        <h3 className=" font-bold text-[#8D8D8D]">訂閱以獲取更多資訊！</h3>
+      <div className="absolute bottom-3 left-40">
+        <h3 className="font-bold text-[#8D8D8D]">記得</h3>
+        <h3 className="font-bold text-[#8D8D8D]">訂閱以獲取更多資訊！</h3>
         <input
-          className=" border my-2 p-2 mx border-primary-content"
+          className="mx my-2 border border-primary-content p-2"
           type="email"
           placeholder="Your email address"
           name=""
@@ -86,13 +61,13 @@ function Category() {
       ) : error ? (
         <div>Error: </div>
       ) : (
-        <ul className=" flex flex-row gap-3 h-full justify-center items-center ">
+        <ul className="flex h-full flex-row items-center justify-center gap-3">
           {data.map((category: any) => (
             <li
               onClick={() => {
                 onSwitchCategory(category.category_name);
               }}
-              className=" cursor-pointer text-white font-bold "
+              className="cursor-pointer font-bold text-white"
               key={category.id}
             >
               {category.category_name}
@@ -119,32 +94,32 @@ function ProductCard({ product }: { product: ProductProp }) {
   const { id, category, image, origin_price, price, title, unit } = product;
 
   return (
-    <div className=" flex justify-center items-center flex-col mt-4   ">
-      <figure className=" w-28  h-28 lg:w-52 lg:h-52 relative ">
+    <div className="mt-4 flex flex-col items-center justify-center">
+      <figure className="relative h-28 w-28 lg:h-52 lg:w-52">
         <Image alt="" src={image} fill />
       </figure>
-      <div className=" w-full ml-10 flex flex-col justify-center">
-        <span className=" text-[#838383]  mt-3">{title}</span>
+      <div className="ml-10 flex w-full flex-col justify-center">
+        <span className="mt-3 text-[#838383]">{title}</span>
         <span>{category}</span>
-        <div className="flex gap-3 ">
+        <div className="flex gap-3">
           <span>
             {numbro(price).format({
               thousandSeparated: true,
               prefix: "NT$\u00A0",
             })}
           </span>
-          <span className="line-through text-gray-500">
+          <span className="text-gray-500 line-through">
             {numbro(origin_price).format({
               thousandSeparated: true,
               prefix: "NT$\u00A0",
             })}
           </span>
         </div>
-        <div className=" flex  gap-3">
-          <span className="cursor-pointer material-icons flex h-full items-center justify-center bg-[#fff] font-bold text-[#916019]">
+        <div className="flex gap-3">
+          <span className="material-icons flex h-full cursor-pointer items-center justify-center bg-[#fff] font-bold text-[#916019]">
             favorite
           </span>
-          <span className=" cursor-pointer material-icons flex h-full items-center justify-center bg-[#fff] font-bold text-[#916019]">
+          <span className="material-icons flex h-full cursor-pointer items-center justify-center bg-[#fff] font-bold text-[#916019]">
             shopping_cart
           </span>
 

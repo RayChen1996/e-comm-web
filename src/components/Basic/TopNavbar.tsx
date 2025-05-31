@@ -2,7 +2,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import { useRouter } from "next/navigation";
+import { House, ShoppingCart, Heart, User } from "lucide-react";
+
+/** - 導覽 */
 export default function TopNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -10,9 +12,9 @@ export default function TopNavbar() {
     setIsMenuOpen(!isMenuOpen);
   };
   return (
-    <div className="relative flex justify-between items-center z-10 navbar h-20 bg-white w-full">
+    <div className="navbar relative z-10 flex h-20 w-full items-center justify-between bg-white sm:container">
       <div className="flex items-center">
-        <Link href={"/"} className="btn border-none">
+        <Link href={"/"} className="border-none">
           <Image alt="" src={"/d’Perfume.png"} width={150} height={50} />
         </Link>
       </div>
@@ -20,7 +22,7 @@ export default function TopNavbar() {
       <div className="flex items-center">
         <button
           onClick={toggleMenu}
-          className="block lg:hidden px-2 py-1 focus:outline-none"
+          className="block px-2 py-1 focus:outline-none lg:hidden"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -49,30 +51,35 @@ export default function TopNavbar() {
         <ul
           className={`${
             isMenuOpen ? "block" : "hidden"
-          } lg:flex lg:gap-2 lg:items-center`}
+          } lg:flex lg:items-center lg:gap-7`}
         >
           <li className="cursor-pointer">
-            <Link href={"/products"} className="btn border-none">
-              Product
+            <Link href={"/products"} className="flex items-center border-none">
+              <House className="mr-2 inline-block" />
+              <span>Product</span>
             </Link>
           </li>
           <li className="cursor-pointer">
-            <Link href={"/"} className="btn border-none">
-              Log In
+            <Link href={"/singin"} className="flex items-center border-none">
+              <User className="mr-2 inline-block" />
+              <span>log In</span>
             </Link>
           </li>
           <li className="cursor-pointer">
-            <Link href={"/"} className="btn border-none">
-              Wishlist
+            <Link href={"/"} className="flex items-center border-none">
+              <Heart className="mr-2 inline-block" />
+
+              <span>Wishlist</span>
             </Link>
           </li>
           <li className="cursor-pointer">
-            <Link href={"/"} className="btn border-none">
-              Cart
+            <Link href={"/"} className="flex items-center border-none">
+              <ShoppingCart className="mr-2 inline-block" />
+              <span>Cart</span>
             </Link>
           </li>
           <li className="cursor-pointer">
-            <Link href={"/Back-Stage"} className="btn border-none">
+            <Link href={"/Back-Stage"} className="border-none">
               後台
             </Link>
           </li>
